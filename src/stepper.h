@@ -1,10 +1,13 @@
 #ifndef STEPPER_H
 #define STEPPER_H
 
+#include <Arduino.h>
+
 class Stepper{
 public:
   //Constructor:
-  Stepper(byte stpPin, byte dirPin, byte enaPin = NONE);
+  Stepper(byte stpPin, byte dirPin);
+  Stepper(byte stpPin, byte dirPin, byte enaPin);
   //End of Constructor;
 
 
@@ -26,7 +29,7 @@ public:
   //End of Settings of operation mode;
 
   //Settings of position set:
-  void setPosition(float position = 0);
+  void setPosition(float position);
   void setEndBorder(float endBorderPosition);
   void setBeginBorder(float beginBorderPosition);
   //End settings of position set;
@@ -39,7 +42,6 @@ public:
   //Position metods:
   void  position(float Position);
   float changePosition(float changePos);
-  void  changePosition(float changePos);
   //End of position metods;
 
   //Information metods:
@@ -62,8 +64,8 @@ private:
   float mmPerTurn = 10;
 
   float position = 0;
-  float beginBorder = NONE;
-  float endBorder = NONE;
+  float beginBorder = -3000000.0;
+  float endBorder = +3000000.0;
 
   byte stpPin;
   byte dirPin;
