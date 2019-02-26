@@ -1,1 +1,0 @@
-LANG=C g++ stepper.cpp -I /usr/share/arduino/hardware/arduino/avr/cores/arduino -I /usr/avr/include/ -I /usr/share/arduino/hardware/arduino/avr/variants/standard/
