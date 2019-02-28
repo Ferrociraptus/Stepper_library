@@ -2,39 +2,59 @@
 # Syntax Coloring Map For Test
 #######################################
 
+
 #######################################
-# Datatypes (KEYWORD1)
+#Datatypes (KEYWORD1)
+#######################################
+
 
 Stepper KEYWORD1  Stepper
-#######################################
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-setAcceleration KEYWORD2
-setStepDivision KEYWORD2
-setAnglePerStep KEYWORD2
-setStartSpeed KEYWORD2
-setMaxSpeed KEYWORD2
-setMotorMode  KEYWORD2
-reverse KEYWORD2
-setImpulseTime  KEYWORD2
-setPosition KEYWORD2
-setEndBorder  KEYWORD2
-setBeginBorder  KEYWORD2
-position  KEYWORD2
-changePosition  KEYWORD2
-showPosition  KEYWORD2
-showInformation KEYWORD2
-setmmPerTurn  KEYWORD2
+
+setAcceleration	KEYWORD2
+
+setStepDivision	KEYWORD2
+
+setAnglePerStep	KEYWORD2
+
+setStartSpeed	KEYWORD2
+
+setMaxSpeed	KEYWORD2
+
+setMotorMode	KEYWORD2
+
+reverse		KEYWORD2
+
+setImpulseTime	KEYWORD2
+
+setPosition	KEYWORD2
+
+setEndBorder	KEYWORD2
+
+setBeginBorder	KEYWORD2
+
+position	KEYWORD2
+
+changePosition	KEYWORD2
+
+showPosition	KEYWORD2
+
+showInformation	KEYWORD2
+
+setmmPerTurn	KEYWORD2
+
 
 ######################################
 # Instances (KEYWORD2)
-#######################################
+######################################
 
 
 
-#######################################
+
+######################################
 # Constants (LITERAL1)
-#######################################
+######################################
