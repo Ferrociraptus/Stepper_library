@@ -1,5 +1,5 @@
 #include "stepper.h"
-//#include "arduino.h"
+//#include "<Arduino.h>"
 
 //Constructor:
 Stepper::Stepper(byte stpPin, byte dirPin, byte enaPin){
@@ -60,7 +60,7 @@ Stepper::Stepper(byte stpPin, byte dirPin){
   //End of settings of rotation for stepper motor;
 
   //Settings of operation mode:
-  void Stepper::setMotorMode(String Mode = "ON", String enaLvl = "LOW"){
+  void Stepper::setMotorMode(String Mode /* = "ON"*/, String enaLvl /*= "LOW"*/){
     Mode.toUpperCase();
     enaLvl.toUpperCase();
     if (Mode == "ON"){
@@ -197,50 +197,57 @@ Stepper::Stepper(byte stpPin, byte dirPin){
           delayMicroseconds(stepTime);
           iterations++;
       }
-
-      return this->position;
   }
+  return this->position;
 }
 
-  //End of position metods;
+  // End of position metods;
 
-  //Information metods:
-  // String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true){
-  //   if(ifshowPos == 1){
-  //     String answer = String("Position:\t") + String(position) + String("\n");
-  //   }
-  //
-  //   if(ifshowBorders == 1){
-  //       if (beginBorder != -3000000.0){
-  //           answer = answer + String("BeginBorder:\t") + String(beginBorder) + String("\n");
-  //   }
-  //   else{
-  //       answer = answer + String("BeginBorder:\t") + String("NONE") + String("\n");
-  //   }
-  //
-  //   if(endBorder != 3000000.0){
-  //     answer = answer + String("EndBorder:\t") + String(endBorder) + String("\n");
-  //   }
-  //   else{
-  //     answer = answer + String("EndBorder:\t") + String("NONE") + String("\n");
-  //   }
-  // }
-  // return answer;
-  // }
-  //
-  // String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true){
-  //     String answer = String("Name of stepper controller:\t") + nameOfStepperController + String("\n");
-  //
-  //     if(ifshowAnglePerStep == 1){
-  //       answer = answer + String("Angle per step:\t") + String(anglePerStep) + String("\n");
-  //     }
-  //
-  //     if(ifshowDivision == 1){
-  //       answer = answer + String("Step division:\t") + String(stepDivision) + String("\n");
-  //     }
-  //
-  //     return answer;
-  // }
+  // Information metods:
+  String Stepper::showPosition(boolean ifshowPos /* = true*/, boolean ifshowBorders /* = true*/){
+    String answer;
+    if(ifshowPos == 1){
+      answer = String("Position:\t") + String(this->position) + String("\n");
+    }
+
+    if(ifshowBorders == 1){
+        if (this->beginBorder != -3000000.0){
+            answer = answer + String("BeginBorder:\t") + String(this->beginBorder) + String("\n");
+    }
+    else{
+        answer = answer + String("BeginBorder:\t") + String("NONE") + String("\n");
+    }
+
+    if(this->endBorder != 3000000.0){
+      answer = answer + String("EndBorder:\t") + String(this->endBorder) + String("\n");
+    }
+    else{
+      answer = answer + String("EndBorder:\t") + String("NONE") + String("\n");
+    }
+  }
+  return answer;
+  }
+
+  String Stepper::showInformation(String nameOfStepperController, boolean ifshowAnglePerStep /*= true*/, boolean ifshowDivision /*= true*/){
+      String answer = String("Name of stepper controller:\t") + nameOfStepperController + String("\n");
+
+      if(ifshowAnglePerStep == 1){
+        answer = answer + String("Angle per step:\t") + String(this->anglePerStep) + String("\n");
+      }
+
+      if(ifshowDivision == 1){
+        answer = answer + String("Step division:\t") + String(this->stepDivision) + String("\n");
+      }
+
+      return answer;
+  }
   //End of information metods;
 
   //End of metods for work with stepper motor;
+
+// https://github.com/sudar/Arduino-Makefile/issues/370#issuecomment-122509560
+void setup(void) {
+  pinMode(13, OUTPUT);
+  digitalWrite(13, HIGH);
+}
+void loop(void) { }

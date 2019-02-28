@@ -23,7 +23,7 @@ public:
   //End of settings of rotation for stepper motor;
 
   //Settings of operation mode:
-  void setMotorMode(String Mode, String enaLvl = "LOW");
+  void setMotorMode(String Mode = "ON", String enaLvl = "LOW");
   void reverse();
   void setImpulseTime(byte impulseTime);
   //End of Settings of operation mode;
@@ -45,8 +45,8 @@ public:
   //End of position metods;
 
   //Information metods:
-  // String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true);
-  // String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true);
+  String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true);
+  String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true);
   //End of information metods;
 
   //End of metods for work with stepper motor;
