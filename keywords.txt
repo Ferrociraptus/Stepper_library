@@ -37,7 +37,7 @@ setEndBorder	KEYWORD2
 
 setBeginBorder	KEYWORD2
 
-position	KEYWORD2
+moveToPosition	KEYWORD2
 
 changePosition	KEYWORD2
 
