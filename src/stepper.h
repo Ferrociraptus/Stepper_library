@@ -1,5 +1,5 @@
-#ifndef STEPPER_H
-#define STEPPER_H
+#ifndef Stepper_h
+#define Stepper_h
 
 #include <Arduino.h>
 
@@ -40,13 +40,13 @@ public:
   //Metods for work with stepper motor:
 
   //Position metods:
-  void  position(float Position);
+  void  moveToPosition(float Position);
   float changePosition(float changePos);
   //End of position metods;
 
   //Information metods:
-  String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true);
-  String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true);
+  // String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true);
+  // String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true);
   //End of information metods;
 
   //End of metods for work with stepper motor;
@@ -59,20 +59,21 @@ private:
   float startSpeed = 5.0;// mm/s
   byte impulseTime = 3;
   byte stepDivision = 1;
-  //boolean motorMode = true;
+  boolean motorMode = true;
   boolean reverseMod = false;
+  boolean motorMod = true;
   float mmPerTurn = 10;
 
   float position = 0;
   float beginBorder = -3000000.0;
-  float endBorder = +3000000.0;
+  float endBorder = 3000000.0;
 
   byte stpPin;
   byte dirPin;
   byte enaPin;
 
-}
+};
 
 
 
-#endif STEPPER_H
+#endif //Stepper_h
