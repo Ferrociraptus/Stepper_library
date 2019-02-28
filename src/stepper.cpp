@@ -137,51 +137,110 @@ Stepper::Stepper(byte stpPin, byte dirPin){
     }
 
       float accelerationWay = ((this->maxSpeed * this->maxSpeed) - (this->startSpeed * this->startSpeed)) / (2 * this->acceleration);
-      if (accelerationWay * 2 > changePos) accelerationWay = changePos / 2;
+      if (accelerationWay * 2 >= changePos) accelerationWay = changePos / 2;
 
       float accelerationWayBuffer = accelerationWay;
       int stepTime = 0;
       float speed = this->startSpeed;
+      int iterations = 0;
 
       while (accelerationWayBuffer >= 0){
-          if(speed < this->maxSpeed){
-            speed = speed + (this->acceleration * stepTime);
-            if(speed > this->maxSpeed) speed = maxSpeed;
+        if (iterations == (stepsPerMM * 0.01)){
+          if(speed < this->maxSpeed && speed != this->maxSpeed){
+            speed = speed + ((this->acceleration * stepTime * iterations) / 1000000.0);
+          if(speed > this->maxSpeed) speed = this->maxSpeed;
           }
-          stepTime = ((1000000 / speed) / this->stepsPerMM) - this->impulseTime;
-          accelerationWayBuffer = accelerationWayBuffer - (speed * stepTime);
+            accelerationWayBuffer = accelerationWayBuffer - 0.01;
+            stepTime = ((1000000 / speed) / this->stepsPerMM) - this->impulseTime;
+
+            iterations = 0;
+        }
           digitalWrite(this->stpPin, HIGH);
           delayMicroseconds(this->impulseTime);
           digitalWrite(this->stpPin, LOW);
           delayMicroseconds(stepTime);
+          iterations ++;
       }
 
       accelerationWayBuffer = changePos - (2 * accelerationWay);
+      iterations = 0;
 
       while (accelerationWayBuffer >= 0){
-          accelerationWayBuffer = accelerationWayBuffer - (speed * stepTime);
+        if (iterations == (stepsPerMM * 0.01)){
+          accelerationWayBuffer = accelerationWayBuffer - 0.01;
+          iterations = 0;
+          }
           digitalWrite(this->stpPin, HIGH);
           delayMicroseconds(this->impulseTime);
           digitalWrite(this->stpPin, LOW);
           delayMicroseconds(stepTime);
+          iterations++;
       }
 
       accelerationWayBuffer = accelerationWay;
+      iterations = 0;
 
       while (accelerationWayBuffer >= 0){
-          if(speed > this->startSpeed){
-            speed = speed - (this->acceleration * stepTime);
-            if(speed < this->startSpeed) speed = this->startSpeed;
+        if (iterations == (stepsPerMM * 0.01)){
+          if(speed > this->startSpeed && speed != this->startSpeed){
+            speed = speed - ((this->acceleration * stepTime * iterations) / 1000000.0);
+          if(speed < this->startSpeed) speed = this->startSpeed;
           }
-          stepTime = ((1000000 / speed) / this->stepsPerMM) - this->impulseTime;
-          accelerationWayBuffer = accelerationWayBuffer - (speed * stepTime);
+            accelerationWayBuffer = accelerationWayBuffer - 0.01;
+            stepTime = ((1000000 / speed) / this->stepsPerMM) - this->impulseTime;
+
+            iterations = 0;
+        }
           digitalWrite(this->stpPin, HIGH);
           delayMicroseconds(this->impulseTime);
           digitalWrite(this->stpPin, LOW);
           delayMicroseconds(stepTime);
+          iterations++;
       }
-    }
+
       return this->position;
   }
+}
 
   //End of position metods;
+
+  //Information metods:
+  // String showPosition(boolean ifshowPos = true, boolean ifshowBorders = true){
+  //   if(ifshowPos == 1){
+  //     String answer = String("Position:\t") + String(position) + String("\n");
+  //   }
+  //
+  //   if(ifshowBorders == 1){
+  //       if (beginBorder != -3000000.0){
+  //           answer = answer + String("BeginBorder:\t") + String(beginBorder) + String("\n");
+  //   }
+  //   else{
+  //       answer = answer + String("BeginBorder:\t") + String("NONE") + String("\n");
+  //   }
+  //
+  //   if(endBorder != 3000000.0){
+  //     answer = answer + String("EndBorder:\t") + String(endBorder) + String("\n");
+  //   }
+  //   else{
+  //     answer = answer + String("EndBorder:\t") + String("NONE") + String("\n");
+  //   }
+  // }
+  // return answer;
+  // }
+  //
+  // String showInformation(String nameOfStepperController, boolean ifshowAnglePerStep = true, boolean ifshowDivision = true){
+  //     String answer = String("Name of stepper controller:\t") + nameOfStepperController + String("\n");
+  //
+  //     if(ifshowAnglePerStep == 1){
+  //       answer = answer + String("Angle per step:\t") + String(anglePerStep) + String("\n");
+  //     }
+  //
+  //     if(ifshowDivision == 1){
+  //       answer = answer + String("Step division:\t") + String(stepDivision) + String("\n");
+  //     }
+  //
+  //     return answer;
+  // }
+  //End of information metods;
+
+  //End of metods for work with stepper motor;
