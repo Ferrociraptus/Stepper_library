@@ -57,6 +57,10 @@ Stepper::Stepper(byte stpPin, byte dirPin){
   void Stepper::setMaxSpeed(float speed){
     this->maxSpeed = speed;
   }
+
+  void Stepper::setAutohomeSpeed(float speed){
+    this->autohomeSpeed = speed;
+  }
   //End of settings of rotation for stepper motor;
 
   //Settings of operation mode:
@@ -98,6 +102,21 @@ Stepper::Stepper(byte stpPin, byte dirPin){
   void Stepper::setBeginBorder(float beginBorderPosition){
     this->beginBorder = beginBorderPosition;
   }
+
+  void Stepper::setAutohomePin(byte pin){
+    this->stopPin = pin;
+  }
+
+  void Stepper::setAutohomePosition(float pos, String positionLvl){
+    this->autohomePosition = pos;
+    positionLvl.toUpperCase();
+    if (positionLvl == "MIN"){
+      this->minAutohomePos = true;
+    }
+    else{
+      this->minAutohomePos = false;
+    }
+  }
   //End settings of position set;
 
 //End of set-settings;
@@ -107,6 +126,55 @@ Stepper::Stepper(byte stpPin, byte dirPin){
 //Metods for work with stepper motor:
 
   //Position metods:
+  void Stepper::autohome(){
+    this->stepsPerMM = ((360.0 / this->anglePerStep) * this->stepDivision) / this->mmPerTurn;
+    int stepTime = ((1000000 / this->autohomeSpeed) / this->stepsPerMM) - this->impulseTime;
+    pinMode(this->stopPin, INPUT_PULLUP);
+
+    if (this->minAutohomePos == true){
+      if (this->reverseMod == false) digitalWrite(this->dirPin, HIGH);
+      if (this->reverseMod == true) digitalWrite(this->dirPin, LOW);
+    }
+    else{
+      if (this->reverseMod == false) digitalWrite(this->dirPin, LOW);
+      if (this->reverseMod == true) digitalWrite(this->dirPin, HIGH);
+    }
+
+    while (!digitalRead(this->stopPin) < 0){
+          digitalWrite(this->stpPin, HIGH);
+          delayMicroseconds(this->impulseTime);
+          digitalWrite(this->stpPin, LOW);
+          delayMicroseconds(stepTime);
+    }
+    setPosition(this->autohomePosition);
+
+    if (this->minAutohomePos == true){
+      changePosition(20);
+    }
+    else{
+      changePosition(-20);
+    }
+
+    if (this->minAutohomePos == true){
+      if (this->reverseMod == false) digitalWrite(this->dirPin, HIGH);
+      if (this->reverseMod == true) digitalWrite(this->dirPin, LOW);
+    }
+    else{
+      if (this->reverseMod == false) digitalWrite(this->dirPin, LOW);
+      if (this->reverseMod == true) digitalWrite(this->dirPin, HIGH);
+    }
+
+    stepTime = ((1000000 / (this->autohomeSpeed / 2)) / this->stepsPerMM) - this->impulseTime;
+    while (!digitalRead(this->stopPin) < 0){
+              digitalWrite(this->stpPin, HIGH);
+              delayMicroseconds(this->impulseTime);
+              digitalWrite(this->stpPin, LOW);
+              delayMicroseconds(stepTime);
+        }
+
+
+  }
+
   void  Stepper::moveToPosition(float Position){
     this->position = changePosition(Position - this->position);
   }
@@ -246,8 +314,10 @@ Stepper::Stepper(byte stpPin, byte dirPin){
   //End of metods for work with stepper motor;
 
 // https://github.com/sudar/Arduino-Makefile/issues/370#issuecomment-122509560
+/*
 void setup(void) {
   pinMode(13, OUTPUT);
   digitalWrite(13, HIGH);
 }
 void loop(void) { }
+*/

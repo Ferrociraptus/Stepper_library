@@ -20,6 +20,7 @@ public:
   void setAnglePerStep(float angle);
   void setStartSpeed(float speed);
   void setMaxSpeed(float speed);
+  void setAutohomeSpeed(float speed);
   //End of settings of rotation for stepper motor;
 
   //Settings of operation mode:
@@ -32,6 +33,8 @@ public:
   void setPosition(float position);
   void setEndBorder(float endBorderPosition);
   void setBeginBorder(float beginBorderPosition);
+  void setAutohomePin(byte pin);
+  void setAutohomePosition(float pos, String positionLvl);
   //End settings of position set;
 
   //End of set-settings;
@@ -42,6 +45,7 @@ public:
   //Position metods:
   void  moveToPosition(float Position);
   float changePosition(float changePos);
+  void autohome();
   //End of position metods;
 
   //Information metods:
@@ -63,10 +67,13 @@ private:
   boolean reverseMod = false;
   boolean motorMod = true;
   float mmPerTurn = 10;
-
+  bool stopPin = 100;
+  float autohomePosition = 0.0;
+  bool minAutohomePos = true;
   float position = 0;
   float beginBorder = -3000000.0;
   float endBorder = 3000000.0;
+  float autohomeSpeed = 50;
 
   byte stpPin;
   byte dirPin;

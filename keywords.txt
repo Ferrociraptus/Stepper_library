@@ -2,15 +2,15 @@
 # Syntax Coloring Map For Test
 #######################################
 
+##
+#####################################
+#Datatypes (KEYWORD1)#######################################
 
-#######################################
-#Datatypes (KEYWORD1)
-#######################################
+###
 
 
 Stepper KEYWORD1  Stepper
-
-#######################################
+####################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
@@ -37,7 +37,7 @@ setEndBorder	KEYWORD2
 
 setBeginBorder	KEYWORD2
 
-moveToPosition	KEYWORD2
+position	KEYWORD2
 
 changePosition	KEYWORD2
 
@@ -47,14 +47,19 @@ showInformation	KEYWORD2
 
 setmmPerTurn	KEYWORD2
 
+autohome	KEYWORD2
+
+moveToPosition	KEYWORD2
+
+setAutohomePin	KEYWORD2
 
 ######################################
 # Instances (KEYWORD2)
-######################################
+#######################################
 
 
 
 
 ######################################
 # Constants (LITERAL1)
-######################################
+#######################################
