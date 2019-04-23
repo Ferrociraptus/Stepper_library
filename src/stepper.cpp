@@ -104,6 +104,7 @@ Stepper::Stepper(byte stpPin, byte dirPin){
   }
 
   void Stepper::setAutohomePin(byte pin){
+    this->stopPinSelect = true;
     this->stopPin = pin;
   }
 
@@ -127,6 +128,7 @@ Stepper::Stepper(byte stpPin, byte dirPin){
 
   //Position metods:
   void Stepper::autohome(){
+    if (this->stopPinSelect){
     this->stepsPerMM = ((360.0 / this->anglePerStep) * this->stepDivision) / this->mmPerTurn;
     int stepTime = ((1000000 / this->autohomeSpeed) / this->stepsPerMM) - this->impulseTime;
     pinMode(this->stopPin, INPUT_PULLUP);
@@ -172,7 +174,7 @@ Stepper::Stepper(byte stpPin, byte dirPin){
               delayMicroseconds(stepTime);
         }
 
-
+      }
   }
 
   void  Stepper::moveToPosition(float Position){

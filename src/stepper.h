@@ -74,6 +74,7 @@ private:
   float beginBorder = -3000000.0;
   float endBorder = 3000000.0;
   float autohomeSpeed = 50;
+  bool stopPinSelect = false;
 
   byte stpPin;
   byte dirPin;
