@@ -9,7 +9,7 @@
 ###
 
 
-Stepper KEYWORD1  Stepper
+Stepper	KEYWORD1	Stepper
 ####################################
 # Methods and Functions (KEYWORD2)
 #######################################
@@ -27,7 +27,7 @@ setMaxSpeed	KEYWORD2
 
 setMotorMode	KEYWORD2
 
-reverse		KEYWORD2
+reverse	KEYWORD2
 
 setImpulseTime	KEYWORD2
 
